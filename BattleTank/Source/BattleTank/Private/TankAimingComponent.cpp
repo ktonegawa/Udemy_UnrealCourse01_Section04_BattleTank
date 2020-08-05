@@ -10,7 +10,7 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = false; // TODO should this really tick?
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -66,12 +66,12 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
         MoveBarrelTowards(AimDirection);
         auto Time = GetWorld()->GetTimeSeconds();
         // UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found"), Time);
-        UE_LOG(LogTemp, Warning, TEXT("%f: %s Aiming at : %s"), Time, *(OurTankName), *(AimDirection.ToString()));
+        // UE_LOG(LogTemp, Warning, TEXT("%f: %s Aiming at : %s"), Time, *(OurTankName), *(AimDirection.ToString()));
     }
     else
     {
         auto Time = GetWorld()->GetTimeSeconds();
-        UE_LOG(LogTemp, Warning, TEXT("%f: No aim solution found for %s"), Time, *(OurTankName));
+        // UE_LOG(LogTemp, Warning, TEXT("%f: No aim solution found for %s"), Time, *(OurTankName));
     }
     
     
@@ -85,6 +85,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
     auto DeltaRotator = AimAsRotator - BarrelRotator;
     // UE_LOG(LogTemp, Warning, TEXT("AimAsARotator at : %s"), *(AimAsRotator.ToString()));
 
-    Barrel->Elevate(DeltaRotator.Pitch); // TODO remove magic number
+    Barrel->Elevate(DeltaRotator.Pitch);
     Turret->Rotate(DeltaRotator.Yaw);
 }
