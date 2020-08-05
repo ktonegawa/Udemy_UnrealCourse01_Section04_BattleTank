@@ -36,14 +36,29 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
                                                                         StartLocation,
                                                                         HitLocation,
                                                                         LaunchSpeed,
+                                                                        false, 0, 0,
                                                                         ESuggestProjVelocityTraceOption::DoNotTrace);
-    if(bHaveAimSolution)
+    /* debug version:
+    const TArray<AActor*> ActorsToIgnore;
+    bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity(this,
+                                                                        OutLaunchVelocity,
+                                                                        StartLocation,
+                                                                        HitLocation,
+                                                                        LaunchSpeed,
+                                                                        false, 0, 0,
+                                                                        ESuggestProjVelocityTraceOption::DoNotTrace,
+                                                                        FCollisionResponseParams::DefaultResponseParam,
+                                                                        ActorsToIgnore,
+                                                                        true);
+    */
+    if(bHaveAimSolution&&(HitLocation!=FVector(0)))
     {
         auto AimDirection = OutLaunchVelocity.GetSafeNormal();
         // UE_LOG(LogTemp, Warning, TEXT("Aiming at : %s"), *(AimDirection.ToString()));
         MoveBarrelTowards(AimDirection);
         auto Time = GetWorld()->GetTimeSeconds();
-        UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found"), Time);
+        // UE_LOG(LogTemp, Warning, TEXT("%f: Aim solution found"), Time);
+        UE_LOG(LogTemp, Warning, TEXT("%f: Aiming at : %s"), Time, *(AimDirection.ToString()));
     }
     else
     {
