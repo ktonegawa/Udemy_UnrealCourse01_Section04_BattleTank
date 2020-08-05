@@ -35,6 +35,9 @@ ATank* ATankPlayerController::GetControlledTank() const
 void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetControlledTank()) { return; }
+    
+
+    // UE_LOG(LogTemp, Warning, TEXT("AimTowardsCrosshair still running for %s"), *(GetControlledTank()->GetName()));
 
 	FVector OutHitLocation; // Out Parameter
 	if (GetSightRayHitLocation(OutHitLocation)) // Has "side-effect", is going to line trace
@@ -43,6 +46,7 @@ void ATankPlayerController::AimTowardsCrosshair()
         // UE_LOG(LogTemp, Warning, TEXT("Hit direction: %s"), *(OutHitLocation.ToString()));
         GetControlledTank()->AimAt(OutHitLocation);
 	}
+
 }
 
 // Get world location if linetrace through crosshair, true if hits location
@@ -61,10 +65,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& OutHitLocation) cons
 	{
 		// Line-trace along that LookDirection and see what we hit
 		//UE_LOG(LogTemp, Warning, TEXT("Look direction: %s"), *(LookDirection.ToString()));
-		return GetLookVectorHitLocation(LookDirection, OutHitLocation);
+		GetLookVectorHitLocation(LookDirection, OutHitLocation);
 	}
 		
-	return false;
+	return true;
 }
 
 bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVector& HitLocation) const
