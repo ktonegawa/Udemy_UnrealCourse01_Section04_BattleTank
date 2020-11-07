@@ -24,10 +24,7 @@ public:
     void IntendMoveForward(float Throw);
 
     UFUNCTION(BlueprintCallable, Category = "Input")
-    void IntendTurnRight(float Throw);
-	
-    // TODO check best protection
-    
+    void IntendTurnRight(float Throw);    
 
 private:
     virtual void RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) override;
