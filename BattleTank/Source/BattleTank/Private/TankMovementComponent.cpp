@@ -8,7 +8,8 @@ void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* 
     RightTrack = RightTrackToSet;
 }
 
-void UTankMovementComponent::IntendMoveForward(float Throw) {
+void UTankMovementComponent::IntendMoveForward(float Throw) 
+{
     //UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"), Throw);
 
     if (!LeftTrack || !RightTrack) { return; }
@@ -18,7 +19,8 @@ void UTankMovementComponent::IntendMoveForward(float Throw) {
 }
 
 
-void UTankMovementComponent::IntendTurnRight(float Throw) {
+void UTankMovementComponent::IntendTurnRight(float Throw) 
+{
     UE_LOG(LogTemp, Warning, TEXT("Intend move forward throw: %f"), Throw);
 
     LeftTrack->SetThrottle(Throw);
@@ -26,7 +28,8 @@ void UTankMovementComponent::IntendTurnRight(float Throw) {
     // TODO prevent double-speed due to dual control use
 }
 
-void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) {
+void UTankMovementComponent::RequestDirectMove(const FVector& MoveVelocity, bool bForceMaxSpeed) 
+{
     // no need to call Super to inherit as we are replacing this function
     //auto OurTankName = GetOwner()->GetName();
     auto TankForward = GetOwner()->GetActorForwardVector().GetSafeNormal();
