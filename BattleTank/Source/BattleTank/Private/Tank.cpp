@@ -18,7 +18,7 @@ ATank::ATank()
     //TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 
     auto TankName = GetName();
-    UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Construct"), *TankName)
+    //UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Construct"), *TankName)
 }
 
 void ATank::BeginPlay()
@@ -26,7 +26,9 @@ void ATank::BeginPlay()
     Super::BeginPlay(); // Needed for BP Begin Play to run
 
     auto TankName = GetName();
-    UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Begin Play"), *TankName)
+    //UE_LOG(LogTemp, Warning, TEXT("%s DONKEY: Tank C++ Begin Play"), *TankName)
+
+    TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
 }
 
 void ATank::AimAt(FVector HitLocation)
@@ -38,7 +40,7 @@ void ATank::AimAt(FVector HitLocation)
 void ATank::Fire()
 {
     auto Time = GetWorld()->GetTimeSeconds();
-    UE_LOG(LogTemp, Warning, TEXT("%f: Tank fires"), Time);
+    //UE_LOG(LogTemp, Warning, TEXT("%f: Tank fires"), Time);
 
     if (!ensure(Barrel)) { return; }
     bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;

@@ -38,6 +38,7 @@ private:
     UPROPERTY(EditDefaultsOnly, Category = "Setup")
     TSubclassOf<AProjectile> ProjectileBlueprint;
 
+    // TODO once refactoring is done
     UPROPERTY(EditDefaultsOnly, Category = "Firing")
     float LaunchSpeed = 4000;
 
