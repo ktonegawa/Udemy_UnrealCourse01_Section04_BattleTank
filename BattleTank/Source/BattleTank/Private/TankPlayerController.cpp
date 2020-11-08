@@ -20,7 +20,7 @@ void ATankPlayerController::BeginPlay()
 
 	//UE_LOG(LogTemp, Warning, TEXT("PlayerController BeginPlay"));
     auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
-    if (AimingComponent)
+    if (ensure(AimingComponent))
     {
         FoundAimingComponent(AimingComponent);
     }
@@ -45,7 +45,7 @@ ATank* ATankPlayerController::GetControlledTank() const
 
 void ATankPlayerController::AimTowardsCrosshair()
 {
-	if (!GetControlledTank()) { return; }
+	if (!ensure(GetControlledTank())) { return; }
     
 
     // UE_LOG(LogTemp, Warning, TEXT("AimTowardsCrosshair still running for %s"), *(GetControlledTank()->GetName()));
