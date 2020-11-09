@@ -7,10 +7,6 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-// forward declaration to get rid of the Tank.h from this files header as a way of 
-// cleaner compilation
-class ATank;
-
 /**
  * 
  */
@@ -20,9 +16,6 @@ class BATTLETANK_API ATankAIController : public AAIController
 	GENERATED_BODY()
 	
 private:
-    //ATank* GetControlledTank() const;
-
-    //ATank* GetPlayerTank() const;
 
     virtual void Tick(float DeltaTime) override;
 
