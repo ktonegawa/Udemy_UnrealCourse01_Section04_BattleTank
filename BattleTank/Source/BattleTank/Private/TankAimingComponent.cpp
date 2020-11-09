@@ -21,6 +21,18 @@ void UTankAimingComponent::BeginPlay()
     Super::BeginPlay();
     // so that first fire is after initial reload
     LastFireTime = FPlatformTime::Seconds();
+    if (FiringState == EFiringState::Reloading)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Firing State: Reloading"));
+    }
+    else if (FiringState == EFiringState::Aiming)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Firing State: Aiming"));
+    }
+    else if (FiringState == EFiringState::Locked)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("Firing State: Locked"));
+    }
 }
 
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
@@ -31,16 +43,21 @@ void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* Tur
 
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
+    
+    //UE_LOG(LogTemp, Warning, TEXT("Is this ticking?"));
     if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
     {
+        UE_LOG(LogTemp, Warning, TEXT("Setting to Reloading"));
         FiringState = EFiringState::Reloading;
     }
     else if (IsBarrelMoving())
     {
+        UE_LOG(LogTemp, Warning, TEXT("Setting to Aiming"));
         FiringState = EFiringState::Aiming;
     }
     else
     {
+        UE_LOG(LogTemp, Warning, TEXT("Setting to Locked"));
         FiringState = EFiringState::Locked;
     }
     // TODO handle aiming in locked state
@@ -110,8 +127,9 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 void UTankAimingComponent::Fire()
 {
-
+    //bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
     if (FiringState != EFiringState::Reloading)
+    //if (isReloaded)
     {
         // Spawn a projectile at the socket location on the barrel
         if (!ensure(Barrel)) { return; }
