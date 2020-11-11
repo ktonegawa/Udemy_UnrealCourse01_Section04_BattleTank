@@ -21,7 +21,7 @@ void UTankAimingComponent::BeginPlay()
     Super::BeginPlay();
     // so that first fire is after initial reload
     LastFireTime = FPlatformTime::Seconds();
-    if (FiringState == EFiringState::Reloading)
+    /*if (FiringState == EFiringState::Reloading)
     {
         UE_LOG(LogTemp, Warning, TEXT("Firing State: Reloading"));
     }
@@ -32,7 +32,7 @@ void UTankAimingComponent::BeginPlay()
     else if (FiringState == EFiringState::Locked)
     {
         UE_LOG(LogTemp, Warning, TEXT("Firing State: Locked"));
-    }
+    }*/
 }
 
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
@@ -47,17 +47,17 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
     //UE_LOG(LogTemp, Warning, TEXT("Is this ticking?"));
     if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
     {
-        UE_LOG(LogTemp, Warning, TEXT("Setting to Reloading"));
+        //UE_LOG(LogTemp, Warning, TEXT("Setting to Reloading"));
         FiringState = EFiringState::Reloading;
     }
     else if (IsBarrelMoving())
     {
-        UE_LOG(LogTemp, Warning, TEXT("Setting to Aiming"));
+        //UE_LOG(LogTemp, Warning, TEXT("Setting to Aiming"));
         FiringState = EFiringState::Aiming;
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("Setting to Locked"));
+        //UE_LOG(LogTemp, Warning, TEXT("Setting to Locked"));
         FiringState = EFiringState::Locked;
     }
     // TODO handle aiming in locked state
@@ -116,7 +116,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
     if (!ensure(Barrel) || !ensure(Turret)) { return; }
-    // Work out difference between current barrel rotation and AimDirecdtion
+    // Work out difference between current barrel rotation and AimDirection
     auto BarrelRotator = Barrel->GetForwardVector().Rotation();
     auto AimAsRotator = AimDirection.Rotation();
     auto DeltaRotator = AimAsRotator - BarrelRotator;
