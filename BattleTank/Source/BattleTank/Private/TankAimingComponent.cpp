@@ -45,7 +45,11 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
 {
     
     //UE_LOG(LogTemp, Warning, TEXT("Is this ticking?"));
-    if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+    if (RoundsLeft <= 0)
+    {
+        FiringState = EFiringState::OutOfAmmo;
+    }
+    else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
     {
         //UE_LOG(LogTemp, Warning, TEXT("Setting to Reloading"));
         FiringState = EFiringState::Reloading;
@@ -61,6 +65,11 @@ void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickTy
         FiringState = EFiringState::Locked;
     }
     // TODO handle aiming in locked state
+}
+
+int UTankAimingComponent::GetRoundsLeft() const
+{
+    return RoundsLeft;
 }
 
 EFiringState UTankAimingComponent::GetFiringState() const
@@ -129,7 +138,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
     // always yaw the shortest way
     Barrel->Elevate(DeltaRotator.Pitch);
-    if (DeltaRotator.Yaw < 180)
+    if (FMath::Abs(DeltaRotator.Yaw) < 180) // FMath needed for proper calculation/comparison
     {
         Turret->Rotate(DeltaRotator.Yaw);
     }
@@ -142,7 +151,7 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 void UTankAimingComponent::Fire()
 {
     //bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-    if (FiringState != EFiringState::Reloading)
+    if (FiringState == EFiringState::Locked || FiringState == EFiringState::Aiming)
     //if (isReloaded)
     {
         // Spawn a projectile at the socket location on the barrel
@@ -154,6 +163,7 @@ void UTankAimingComponent::Fire()
 
         Projectile->LaunchProjectile(LaunchSpeed);
         LastFireTime = FPlatformTime::Seconds();
+        RoundsLeft--;
     }
 
 
