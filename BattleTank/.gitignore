@@ -79,4 +79,4 @@ DerivedDataCache/*
 TestPackage/*
 
 # ignore this weird large file
-Content/BT17+Firing_M1A1_tank_in_Djibouti.uasset
+Content/UI/BT17+Firing_M1A1_tank_in_Djibouti.uasset
