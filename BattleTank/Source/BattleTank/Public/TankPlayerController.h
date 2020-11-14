@@ -3,8 +3,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/PlayerController.h"
-#include "Engine/World.h"
 #include "TankPlayerController.generated.h" // must be the last include
 
 // forward declaration to get rid of the Tank.h from this files header as a way of 

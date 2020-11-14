@@ -5,7 +5,6 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "Engine/World.h"
 #include "TankAimingComponent.generated.h"
 
 // Enum for aiming state
