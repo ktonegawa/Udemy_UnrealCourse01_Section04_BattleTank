@@ -26,11 +26,11 @@ void ASprungWheel::BeginPlay()
 
     if (GetAttachParentActor())
     {
-        UE_LOG(LogTemp, Warning, TEXT("GetAttachParentActor Not null"));
+        UE_LOG(LogTemp, Warning, TEXT("Not null: %s"), *GetAttachParentActor()->GetName());
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("GetAttachParentActor Null"));
+        UE_LOG(LogTemp, Warning, TEXT("Null"));
     }
 }
 
